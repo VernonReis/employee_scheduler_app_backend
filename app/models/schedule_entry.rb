@@ -1,0 +1,2 @@
+class ScheduleEntry < ApplicationRecord
+end
