@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :employers
+  resources :relationships
   resources :schedule_entries
   resources :priveleges
   mount_devise_token_auth_for 'User', at: 'auth'
