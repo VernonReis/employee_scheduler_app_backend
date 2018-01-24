@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  password_digest: MyString
+  auth_level: 1
+  employer_id: 1
+  is_verified: false
+
+two:
+  username: MyString
+  password_digest: MyString
+  auth_level: 1
+  employer_id: 1
+  is_verified: false
