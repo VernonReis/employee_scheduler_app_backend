@@ -21,13 +21,6 @@ ActiveRecord::Schema.define(version: 2018_01_24_193847) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "priveleges", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "auth_level"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "schedule_entries", force: :cascade do |t|
     t.integer "employee_id"
     t.datetime "start_time"

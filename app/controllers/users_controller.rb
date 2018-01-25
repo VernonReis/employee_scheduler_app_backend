@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.auth_level = 1
     if @user.save
       render json: @user, status: :created
     else
@@ -32,11 +33,11 @@ class UsersController < ApplicationController
   def login
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      render json: {status: 200, user: user}
+      @user = {:user => {:username => user.username, :id => user.id}}
+
+      render json: {status: 200, user: @user}
     else
-      flash.now.alert = 'Email or password is invalid'
-      render :new
+      render json: {error: 'Invalid username / password'}
     end
   end
 
@@ -49,30 +50,7 @@ class UsersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:username, :password, :img)
-  end
-
-  def payload(id, username, img)
-    {
-      exp: (Time.now + 30.minutes).to_i,
-      iat: Time.now.to_i,
-      iss: ENV['JWT_ISSUER'],
-      user: {
-        id: id,
-        username: username,
-        img: img,
-      },
-    }
-  end
-
-  def create_token(id, username, img)
-    JWT.encode(payload(id, username, img), ENV['JWT_SECRET'], 'HS256')
-  end
-
-  def get_current_user
-    return if !bearer_token
-    decoded_jwt = decode_token(bearer_token)
-    User.find(decoded_jwt[0]["user"]["id"])
+    params.permit(:username, :password, :employer_id)
   end
 
   def authorize_user
