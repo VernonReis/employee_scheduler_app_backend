@@ -5,13 +5,12 @@ class EmployersController < ApplicationController
   def index
     @employers = Employer.all
 
-    render json: @employers.to_json(indlude: [:users, :empoyees])
+    render json: @employers.to_json(include: :employees)
   end
 
   # GET /employers/1
   def show
-    employees = @employer.employees
-    render json: {employer: @employer, employees: employees}
+    render json: @employer.to_json(include: :employees.schedule_entries)
   end
 
   # POST /employers
