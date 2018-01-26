@@ -5,12 +5,13 @@ class EmployersController < ApplicationController
   def index
     @employers = Employer.all
 
-    render json: @employers
+    render json: @employers.to_json(indlude: [:users, :empoyees])
   end
 
   # GET /employers/1
   def show
-    render json: @employer
+    employees = @employer.employees
+    render json: {employer: @employer, employees: employees}
   end
 
   # POST /employers
@@ -39,13 +40,14 @@ class EmployersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_employer
-      @employer = Employer.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def employer_params
-      params.require(:employer).permit(:company_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_employer
+    @employer = Employer.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def employer_params
+    params.require(:employer).permit(:company_name)
+  end
 end

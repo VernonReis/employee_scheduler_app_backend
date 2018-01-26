@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_01_24_193847) do
+ActiveRecord::Schema.define(version: 2018_01_26_204941) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "employees", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "employer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "employers", force: :cascade do |t|
     t.string "company_name"
@@ -23,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_01_24_193847) do
 
   create_table "schedule_entries", force: :cascade do |t|
     t.integer "employee_id"
+    t.integer "employer_id"
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "created_at", null: false
@@ -34,7 +43,6 @@ ActiveRecord::Schema.define(version: 2018_01_24_193847) do
     t.string "password_digest"
     t.integer "auth_level"
     t.integer "employer_id"
-    t.boolean "is_verified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

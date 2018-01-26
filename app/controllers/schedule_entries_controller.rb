@@ -39,13 +39,14 @@ class ScheduleEntriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_schedule_entry
-      @schedule_entry = ScheduleEntry.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def schedule_entry_params
-      params.require(:schedule_entry).permit(:employee_id, :start_time, :end_time)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_schedule_entry
+    @schedule_entry = ScheduleEntry.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def schedule_entry_params
+    params.require(:schedule_entry).permit(:employee_id, :start_time, :end_time, :employer_id)
+  end
 end
