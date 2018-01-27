@@ -3,6 +3,7 @@ class CreateScheduleEntries < ActiveRecord::Migration[5.2]
     create_table :schedule_entries do |t|
       t.integer :employee_id
       t.integer :employer_id
+      t.integer :pay_period_id
       t.datetime :start_time
       t.datetime :end_time
 
