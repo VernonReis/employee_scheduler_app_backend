@@ -10,7 +10,7 @@ class PayPeriodsController < ApplicationController
 
   # GET /pay_periods/1
   def show
-    render json: @pay_period
+    render json: @pay_period.to_json(include: :schedule_entries)
   end
 
   # POST /pay_periods
@@ -39,13 +39,14 @@ class PayPeriodsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pay_period
-      @pay_period = PayPeriod.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def pay_period_params
-      params.require(:pay_period).permit(:start_date, :employer_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pay_period
+    @pay_period = PayPeriod.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def pay_period_params
+    params.require(:pay_period).permit(:start_date, :employer_id)
+  end
 end
