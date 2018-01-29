@@ -3,7 +3,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @employees = Employee.all
+    @employees = Employee.all.order(employee_id: :desc)
 
     render json: @employees
   end
@@ -36,6 +36,8 @@ class EmployeesController < ApplicationController
 
   # DELETE /employees/1
   def destroy
+    @schedule_entries = ScheduleEntry.where(employee_id: @employee.id)
+    @schedule_entries.destroy_all
     @employee.destroy
   end
 
